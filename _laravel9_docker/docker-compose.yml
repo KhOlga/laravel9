@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: laravel9:local
+    container_name: "laravel9_app"
+    hostname: laravel9.local:127.0.0.1
+    ports:
+      - 80:80
+    volumes:
+      - ../projects:/var/www/html
+      - ../SQL:/var/www/sql
+    restart: unless-stopped
+    tty: true
+    environment:
+      DB_HOST: laravel9_db
+      COMPOSER_MEMORY_LIMIT: -1
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: "laravel9_db"
+    restart: unless-stopped
+    tty: true
+    environment:
+      #DATABASE_HOST: mysql
+      #MYSQL_HOST: mysql
+      #MYSQL_DATABASE_HOST: mysql
+      MYSQL_DATABASE: laravel9_db
+      MYSQL_USER: laravel9_dblkjhgfdsA_123_user
+      MYSQL_PASSWORD: lkjhgfdsA_123
+      MYSQL_ROOT_PASSWORD:
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./my.cnf:/etc/mysql/my.cnf
+      - ../dbdata:/var/lib/mysql
+      - ./mysql-files:/var/lib/mysql-files
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
