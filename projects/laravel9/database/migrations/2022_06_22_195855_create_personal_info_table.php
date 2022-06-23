@@ -20,13 +20,15 @@ return new class extends Migration
 			$table->string('country')->nullable();
 			$table->string('city')->nullable();
 			$table->string('street')->nullable();
+			$table->string('house')->nullable();
+			$table->string('apartment')->nullable();
 			$table->string('postal_code')->nullable();
 			$table->string('phone')->nullable();
 			$table->year('birth_year')->nullable();
-
-			//TODO: add fields
             $table->timestamps();
+			$table->softDeletes();
 
+			$table->index(['personable_id']);
         });
     }
 

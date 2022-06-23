@@ -9,6 +9,8 @@ class PersonalInfo extends Model
 {
     use HasFactory;
 
+	########## RELATIONSHIPS START #########
+
 	/**
 	 * Get the parent personable model (user or customer).
 	 */
@@ -16,4 +18,6 @@ class PersonalInfo extends Model
 	{
 		return $this->morphTo();
 	}
+
+	########## RELATIONSHIPS END #########
 }

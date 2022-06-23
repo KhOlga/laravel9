@@ -20,14 +20,12 @@ return new class extends Migration
 			$table->string('last_name');
 			$table->string('email')->unique();
 			$table->string('token')->unique()->nullable();
-			$table->integer('discount_level')->default(0);
+			$table->integer('discount_level')->default(config('discounts.levels.first'));
 			$table->integer()->default(Customer::STATUS_NEW);
-			//TODO: add fields
-
-
-
-            $table->timestamps();
+			$table->timestamps();
 			$table->softDeletes();
+
+			$table->index(['email']);
         });
     }
 

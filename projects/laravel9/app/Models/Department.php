@@ -9,6 +9,8 @@ class Department extends Model
 {
     use HasFactory;
 
+	########## RELATIONSHIPS START #########
+
 	/**
 	 * The users that belong to the department.
 	 */
@@ -16,4 +18,6 @@ class Department extends Model
 	{
 		return $this->belongsToMany(User::class)->using(DepartmentUser::class);
 	}
+
+	########## RELATIONSHIPS END #########
 }

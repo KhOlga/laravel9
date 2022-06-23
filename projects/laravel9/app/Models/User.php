@@ -44,6 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+	########## RELATIONSHIPS START #########
+
 	/**
 	 * The departments that belong to the user.
 	 */
@@ -60,4 +62,21 @@ class User extends Authenticatable
 		return $this->morphOne(PersonalInfo::class, 'personable');
 	}
 
+	/**
+	 * Get the customer's metadata.
+	 */
+	public function metadata()
+	{
+		return $this->morphOne(Metadata::class, 'retrievable');
+	}
+
+	########## RELATIONSHIPS END #########
+
+	/**
+	 * Get the user's most recent metadata.
+	 */
+	public function latestMetadata()
+	{
+		return $this->morphOne(Metadata::class, 'retrievable')->latestOfMany();
+	}
 }
